@@ -3,7 +3,7 @@ const CONFIG = {
     brandName: 'OSO A LA PIEDRA',
     brandColor: '#EE5E4D', // Rojo Cardenal
     brandSecondary: '#FEAB45', // Amarillo Oro
-    scriptUrl: 'https://script.google.com/macros/s/AKfycby.../exec',
+    scriptUrl: 'https://script.google.com/macros/s/AKfycbxrhwggOKH9YaNhnse763z0sX2OGNGBEHi-ZS-75XykiEROUDl_M9p5KUBjSLlm9zI/exec',
     
     // Mensajes personalizados de marca
     messages: {

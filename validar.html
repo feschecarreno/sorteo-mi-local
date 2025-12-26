@@ -3,236 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validar Código - [Nombre de tu Local]</title>
+    <title>Validar Código - Oso a la Piedra</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="validation-container">
-        <!-- Logo y marca -->
-        <div class="validation-header">
-            <img src="assets/logo.png" alt="Logo" class="validation-logo">
-            <h2 class="validation-title">Validación de Código</h2>
-            <p class="validation-subtitle">Ingresá el código de tu compra para participar</p>
+    <div class="container">
+        <img src="assets/logo-oscalapiedra.png" alt="Oso a la Piedra" class="logo-mini">
+        
+        <div id="loader" class="card">
+            <div class="spinner"></div>
+            <p>Validando tu código...</p>
         </div>
 
-        <!-- Paso 1: Validar código -->
-        <div id="step-validate" class="validation-step">
-            <div class="input-group">
-                <label for="codigo" class="input-label">
-                    <i class="fas fa-ticket-alt"></i> Código de tu compra
-                </label>
-                <div class="input-with-button">
-                    <input 
-                        type="text" 
-                        id="codigo" 
-                        placeholder="Ej: ABC123XYZ" 
-                        maxlength="10"
-                        class="input-codigo"
-                        autocomplete="off"
-                    >
-                    <button onclick="validarCodigo()" class="btn-validate">
-                        <i class="fas fa-check"></i> Validar
-                    </button>
-                </div>
-                <p class="input-hint">Encontrá el código en tu ticket de compra (10 caracteres)</p>
-            </div>
-
-            <div id="validation-result"></div>
-
-            <div class="validation-help">
-                <h4><i class="fas fa-question-circle"></i> ¿No encontrás tu código?</h4>
-                <ul>
-                    <li>Está impreso en tu ticket de compra</li>
-                    <li>Suele aparecer como "Código Sorteo: ABC123XYZ"</li>
-                    <li>Si tenés problemas, consultá con nuestro personal</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Paso 2: Formulario de datos (oculto inicialmente) -->
-        <div id="step-form" class="form-step hidden">
-            <div class="success-header">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3 class="success-title">¡Código Válido!</h3>
-                <p class="success-text">Completá tus datos para participar del sorteo</p>
-            </div>
-
-            <form id="participacion-form" class="custom-form">
-                <!-- Código (oculto) -->
-                <input type="hidden" id="codigo-validado" name="codigo">
-                
-                <!-- Datos personales -->
-                <div class="form-group">
-                    <label for="nombre" class="form-label">
-                        <i class="fas fa-user"></i> Nombre completo *
-                    </label>
-                    <input 
-                        type="text" 
-                        id="nombre" 
-                        name="nombre" 
-                        required 
-                        class="form-input"
-                        placeholder="Ej: María González"
-                    >
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email" class="form-label">
-                            <i class="fas fa-envelope"></i> Email *
-                        </label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required 
-                            class="form-input"
-                            placeholder="ejemplo@gmail.com"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="telefono" class="form-label">
-                            <i class="fas fa-phone"></i> Teléfono *
-                        </label>
-                        <input 
-                            type="tel" 
-                            id="telefono" 
-                            name="telefono" 
-                            required 
-                            class="form-input"
-                            placeholder="11 1234-5678"
-                        >
-                    </div>
-                </div>
-
-                <!-- Detalles de la compra -->
-                <div class="form-group">
-                    <label for="compra" class="form-label">
-                        <i class="fas fa-shopping-bag"></i> ¿Qué compraste? *
-                    </label>
-                    <textarea 
-                        id="compra" 
-                        name="compra" 
-                        required 
-                        class="form-textarea"
-                        placeholder="Ej: 2 hamburguesas especiales, 1 papas fritas grandes y 2 gaseosas"
-                        rows="3"
-                    ></textarea>
-                    <p class="form-hint">Contanos qué disfrutaste de nuestro menú</p>
-                </div>
-
-                <!-- Fecha de visita -->
-                <div class="form-group">
-                    <label for="fecha" class="form-label">
-                        <i class="fas fa-calendar-alt"></i> Fecha de tu visita *
-                    </label>
-                    <input 
-                        type="date" 
-                        id="fecha" 
-                        name="fecha" 
-                        required 
-                        class="form-input"
-                    >
-                </div>
-
-                <!-- Newsletter opcional -->
-                <div class="form-checkbox">
-                    <input 
-                        type="checkbox" 
-                        id="newsletter" 
-                        name="newsletter"
-                        checked
-                    >
-                    <label for="newsletter" class="checkbox-label">
-                        <i class="fas fa-bullhorn"></i> 
-                        Quiero recibir promociones especiales y novedades
-                    </label>
-                </div>
-
-                <!-- Términos y condiciones -->
-                <div class="form-checkbox">
-                    <input 
-                        type="checkbox" 
-                        id="terminos" 
-                        name="terminos" 
-                        required
-                    >
-                    <label for="terminos" class="checkbox-label">
-                        <i class="fas fa-file-contract"></i> 
-                        Acepto las <a href="#" class="link">bases y condiciones</a> del sorteo *
-                    </label>
-                </div>
-
-                <!-- Botones -->
-                <div class="form-buttons">
-                    <button type="button" onclick="volverAValidar()" class="btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Volver
-                    </button>
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-paper-plane"></i> Enviar participación
-                    </button>
-                </div>
+        <div id="form-container" class="card hidden">
+            <h2>¡Código Válido!</h2>
+            <p>Completá tus datos para participar:</p>
+            <form id="sorteo-form">
+                <input type="hidden" name="codigo" id="codigo-input">
+                <input type="text" name="nombre" placeholder="Tu Nombre Completo" required>
+                <input type="tel" name="whatsapp" placeholder="Tu WhatsApp (ej: 3512345678)" required>
+                <button type="submit" id="btn-enviar">ENVIAR Y PARTICIPAR</button>
             </form>
         </div>
 
-        <!-- Paso 3: Confirmación (oculto inicialmente) -->
-        <div id="step-confirm" class="confirm-step hidden">
-            <div class="confirm-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <h3 class="confirm-title">¡Felicitaciones!</h3>
-            <p class="confirm-text">Ya estás participando del sorteo de <strong>[Nombre de tu Local]</strong></p>
-            
-            <div class="confirm-details">
-                <p><i class="fas fa-check-circle"></i> Tu código <span id="codigo-confirmado" class="codigo-display"></span> fue registrado</p>
-                <p><i class="fas fa-envelope"></i> Te enviaremos un email de confirmación</p>
-                <p><i class="fas fa-calendar"></i> El sorteo se realiza el último día de cada mes</p>
-                <p><i class="fas fa-star"></i> ¡Mucha suerte!</p>
-            </div>
-
-            <div class="confirm-actions">
-                <a href="index.html" class="btn-primary">
-                    <i class="fas fa-home"></i> Volver al inicio
-                </a>
-                <button onclick="nuevaParticipacion()" class="btn-secondary">
-                    <i class="fas fa-qrcode"></i> Validar otro código
-                </button>
-            </div>
-
-            <div class="confirm-social">
-                <p>Seguinos en nuestras redes:</p>
-                <div class="social-icons">
-                    <a href="#" class="social-icon instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-icon facebook">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="#" class="social-icon whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                </div>
-            </div>
+        <div id="error-container" class="card hidden">
+            <h2 style="color: #EE5E4D;">¡Ups!</h2>
+            <p id="error-msg"></p>
+            <a href="index.html" class="btn-secundario">Volver al inicio</a>
         </div>
 
-        <!-- Mensaje de error duplicado -->
-        <div id="error-duplicado" class="error-message hidden">
-            <div class="error-icon">
-                <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <h4>¡Ups! Código ya utilizado</h4>
-            <p>Este código de compra ya fue registrado anteriormente.</p>
-            <p>Recordá que cada compra da derecho a una sola participación.</p>
-            <button onclick="volverAValidar()" class="btn-primary">
-                <i class="fas fa-redo"></i> Intentar con otro código
-            </button>
+        <div id="success-container" class="card hidden">
+            <h2 style="color: #008459;">¡Ya estás participando!</h2>
+            <p>Mucha suerte, nos vemos en el Cosquín Rock.</p>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpZWZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4JnB0PW0mY3Q9Zw/3o7TKDkDbIDJieKbVm/giphy.gif" width="100%">
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

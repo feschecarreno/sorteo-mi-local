@@ -1,57 +1,81 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrhwggOKH9YaNhnse763z0sX2OGNGBEHi-ZS-75XykiEROUDl_M9p5KUBjSLlm9zI/exec";
+// Configuración: URL de tu Google Apps Script
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_TBMaF63FegMj-Oz-QQJo1jJNITfIUM8mdJFnTBxxry9_fqIhyYu8Leo_R7lnCBx0/exec";
 
 window.onload = async () => {
+    // 1. Obtener el código desde la URL (ej: ?codigo=OSO-123)
     const params = new URLSearchParams(window.location.search);
     const codigo = params.get('codigo');
 
     if (!codigo) {
-        mostrarError("No se encontró ningún código. Escaneá el QR de tu ticket.");
+        mostrarError("No se encontró ningún código. Por favor, escaneá el QR de tu ticket de compra.");
         return;
     }
 
+    // Guardar el código en el input oculto del formulario
     document.getElementById('codigo-input').value = codigo;
 
     try {
-        const res = await fetch(`${SCRIPT_URL}?codigo=${codigo}`);
+        // 2. Validar con Google si el código existe y no fue usado
+        // Agregamos un timestamp (t=...) para evitar que el navegador guarde respuestas viejas
+        const res = await fetch(`${SCRIPT_URL}?codigo=${codigo}&t=${new Date().getTime()}`);
         const data = await res.json();
 
         if (data.valid) {
+            // Si es válido, ocultamos el cargando y mostramos el formulario
             document.getElementById('loader').classList.add('hidden');
             document.getElementById('form-container').classList.remove('hidden');
         } else {
+            // Si el código ya se usó o no existe
             mostrarError(data.message);
         }
     } catch (e) {
-        mostrarError("Error de conexión. Intentá de nuevo.");
+        console.error("Error de validación:", e);
+        mostrarError("Error de conexión. Asegurate de tener internet e intentá de nuevo.");
     }
 };
 
+// 3. Manejar el envío del formulario
 document.getElementById('sorteo-form').onsubmit = async (e) => {
     e.preventDefault();
+    
     const btn = document.getElementById('btn-enviar');
     btn.disabled = true;
-    btn.innerText = "Enviando...";
+    btn.innerText = "Enviando registro...";
 
-    const formData = new FormData(e.target);
-    const params = new URLSearchParams(formData);
+    // Recolectamos los datos para enviar a Google
+    const codigo = document.getElementById('codigo-input').value;
+    const nombre = e.target.nombre.value;
+    const whatsapp = e.target.whatsapp.value;
+
+    // Usamos URLSearchParams para que Google reciba los campos con nombre propio
+    const params = new URLSearchParams();
+    params.append('codigo', codigo);
+    params.append('nombre', nombre);
+    params.append('whatsapp', whatsapp);
 
     try {
-        // Usamos mode 'no-cors' para evitar bloqueos del navegador al escribir en Google
+        // Enviamos el registro a Google Sheets
         await fetch(SCRIPT_URL, {
             method: 'POST',
             body: params,
-            mode: 'no-cors'
+            mode: 'no-cors' // Modo obligatorio para Apps Script desde el navegador
         });
         
+        // Como 'no-cors' no nos deja leer la respuesta, si no hay error de red, asumimos éxito
         document.getElementById('form-container').classList.add('hidden');
         document.getElementById('success-container').classList.remove('hidden');
+        
     } catch (e) {
-        alert("Error al enviar. Intentá de nuevo.");
+        console.error("Error de envío:", e);
+        alert("Hubo un problema al guardar tus datos. Por favor, intentá de nuevo.");
         btn.disabled = false;
         btn.innerText = "ENVIAR Y PARTICIPAR";
     }
 };
 
+/**
+ * Función auxiliar para mostrar errores visuales
+ */
 function mostrarError(msg) {
     document.getElementById('loader').classList.add('hidden');
     document.getElementById('error-container').classList.remove('hidden');

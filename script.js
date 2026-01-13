@@ -1,5 +1,5 @@
 // Configuración: URL de tu Google Apps Script
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_TBMaF63FegMj-Oz-QQJo1jJNITfIUM8mdJFnTBxxry9_fqIhyYu8Leo_R7lnCBx0/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWOv1x5ZbIfLoQ5E_Iv7RYr44hoXR2FHIQo7yLEbRUqW_rVaheA_4pEVq1mpr_soIw/exec";
 
 window.onload = async () => {
     // 1. Obtener el código desde la URL (ej: ?codigo=OSO-123)

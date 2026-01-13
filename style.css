@@ -6,42 +6,124 @@ body {
     justify-content: center;
     padding: 20px;
 }
-.container { width: 100%; max-width: 400px; text-align: center; }
+
+.container { 
+    width: 100%; 
+    max-width: 400px; 
+    text-align: center; 
+}
+
+/* --- NUEVO SISTEMA DE LOGOS --- */
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px; /* Espacio entre logos */
+    margin-bottom: 10px;
+}
+
+.logo-oso { 
+    height: 75px; /* Más jerarquía */
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo-dilema { 
+    height: 55px; /* Menos jerarquía */
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* --- FIN LOGOS --- */
+
 .card {
     background: white;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    margin-top: 20px;
+    margin-top: 10px;
 }
-.logo { max-width: 200px; }
-.logo-mini { max-width: 120px; }
+
 .hidden { display: none; }
+
 h1 { color: #1A1A1A; font-size: 22px; }
 h2 { color: #008459; }
+
+/* Estilos para etiquetas de campos */
+.input-group {
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    color: #444;
+    margin-left: 5px;
+}
+
 input {
     width: 100%;
     padding: 15px;
-    margin: 10px 0;
-    border: 2px solid #ddd;
+    margin: 5px 0 10px 0;
+    border: 2px solid #eee;
     border-radius: 10px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: border-color 0.3s;
 }
+
+input:focus {
+    border-color: #EE5E4D;
+    outline: none;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin: 0 10px 0 0;
+}
+
 button, .btn-principal {
     background-color: #EE5E4D;
     color: white;
     border: none;
-    padding: 15px 20px;
+    padding: 18px 20px;
     border-radius: 50px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
     width: 100%;
     display: block;
     text-decoration: none;
     margin-top: 10px;
+    transition: transform 0.2s;
 }
-.btn-secundario { color: #1A1A1A; text-decoration: underline; display: block; margin-top: 15px; }
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-secundario { 
+    color: #1A1A1A; 
+    text-decoration: underline; 
+    display: block; 
+    margin-top: 15px; 
+}
+
+.footer-logo-error {
+    margin-top: 20px;
+    display: block;
+}
+
 .spinner {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #EE5E4D;
@@ -51,4 +133,5 @@ button, .btn-principal {
     animation: spin 1s linear infinite;
     margin: 10px auto;
 }
+
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

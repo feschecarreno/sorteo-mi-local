@@ -16,6 +16,7 @@ window.onload = async () => {
 
     try {
         // 2. Validar con Google si el código existe y no fue usado
+        // Agregamos un timestamp (t=...) para evitar que el navegador guarde una respuesta vieja (caché)
         const res = await fetch(`${SCRIPT_URL}?codigo=${codigo}&t=${new Date().getTime()}`);
         const data = await res.json();
 
@@ -45,16 +46,16 @@ document.getElementById('sorteo-form').onsubmit = async (e) => {
     const codigo = document.getElementById('codigo-input').value;
     const nombre = e.target.nombre.value;
     const whatsapp = e.target.whatsapp.value;
-    const nroCompra = e.target.nro_compra.value; // Nuevo campo
-    const instagram = e.target.instagram.value;   // Nuevo campo
-    const aceptaPromos = e.target.newsletter.checked ? "Sí" : "No"; // Estado del checkbox
+    const nroCompra = e.target.nro_compra.value; 
+    const instagram = e.target.instagram.value;  
+    const aceptaPromos = e.target.newsletter.checked ? "Sí" : "No";
 
     // Usamos URLSearchParams para enviar los datos por POST
     const params = new URLSearchParams();
     params.append('codigo', codigo);
     params.append('nombre', nombre);
     params.append('whatsapp', whatsapp);
-    params.append('nroCompra', nroCompra);
+    params.append('nroCompra', nroCompra); // Debe coincidir con p.nroCompra en el Apps Script
     params.append('instagram', instagram);
     params.append('newsletter', aceptaPromos);
 
@@ -69,6 +70,9 @@ document.getElementById('sorteo-form').onsubmit = async (e) => {
         // Ocultamos formulario y mostramos mensaje de éxito con el GIF
         document.getElementById('form-container').classList.add('hidden');
         document.getElementById('success-container').classList.remove('hidden');
+        
+        // Scroll hacia arriba para que se vea el mensaje de éxito y el GIF
+        window.scrollTo(0, 0);
         
     } catch (e) {
         console.error("Error de envío:", e);

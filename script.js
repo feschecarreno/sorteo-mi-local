@@ -16,7 +16,6 @@ window.onload = async () => {
 
     try {
         // 2. Validar con Google si el código existe y no fue usado
-        // Agregamos un timestamp (t=...) para evitar que el navegador guarde respuestas viejas
         const res = await fetch(`${SCRIPT_URL}?codigo=${codigo}&t=${new Date().getTime()}`);
         const data = await res.json();
 
@@ -42,26 +41,32 @@ document.getElementById('sorteo-form').onsubmit = async (e) => {
     btn.disabled = true;
     btn.innerText = "Enviando registro...";
 
-    // Recolectamos los datos para enviar a Google
+    // Recolectamos todos los campos del formulario
     const codigo = document.getElementById('codigo-input').value;
     const nombre = e.target.nombre.value;
     const whatsapp = e.target.whatsapp.value;
+    const nroCompra = e.target.nro_compra.value; // Nuevo campo
+    const instagram = e.target.instagram.value;   // Nuevo campo
+    const aceptaPromos = e.target.newsletter.checked ? "Sí" : "No"; // Estado del checkbox
 
-    // Usamos URLSearchParams para que Google reciba los campos con nombre propio
+    // Usamos URLSearchParams para enviar los datos por POST
     const params = new URLSearchParams();
     params.append('codigo', codigo);
     params.append('nombre', nombre);
     params.append('whatsapp', whatsapp);
+    params.append('nroCompra', nroCompra);
+    params.append('instagram', instagram);
+    params.append('newsletter', aceptaPromos);
 
     try {
         // Enviamos el registro a Google Sheets
         await fetch(SCRIPT_URL, {
             method: 'POST',
             body: params,
-            mode: 'no-cors' // Modo obligatorio para Apps Script desde el navegador
+            mode: 'no-cors' 
         });
         
-        // Como 'no-cors' no nos deja leer la respuesta, si no hay error de red, asumimos éxito
+        // Ocultamos formulario y mostramos mensaje de éxito con el GIF
         document.getElementById('form-container').classList.add('hidden');
         document.getElementById('success-container').classList.remove('hidden');
         

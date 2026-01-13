@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validar Código - Oso a la Piedra</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos rápidos para los nuevos campos */
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; color: #333; }
+        .checkbox-group { margin: 15px 0; text-align: left; font-size: 0.85rem; display: flex; align-items: center; }
+        .checkbox-group input { width: auto; margin-right: 10px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -20,8 +27,32 @@
             <p>Completá tus datos para participar:</p>
             <form id="sorteo-form">
                 <input type="hidden" name="codigo" id="codigo-input">
-                <input type="text" name="nombre" placeholder="Tu Nombre Completo" required>
-                <input type="tel" name="whatsapp" placeholder="Tu WhatsApp (ej: 3512345678)" required>
+                
+                <div class="input-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" name="nombre" placeholder="Juan Pérez" required>
+                </div>
+
+                <div class="input-group">
+                    <label>WhatsApp</label>
+                    <input type="tel" name="whatsapp" placeholder="3512345678" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Número de Ticket / Compra</label>
+                    <input type="text" name="nro_compra" placeholder="Ej: 000123" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Tu Instagram</label>
+                    <input type="text" name="instagram" placeholder="@usuario_oso" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" name="newsletter" id="newsletter" checked>
+                    <label for="newsletter">Acepto recibir promociones y novedades</label>
+                </div>
+
                 <button type="submit" id="btn-enviar">ENVIAR Y PARTICIPAR</button>
             </form>
         </div>
@@ -35,7 +66,7 @@
         <div id="success-container" class="card hidden">
             <h2 style="color: #008459;">¡Ya estás participando!</h2>
             <p>Mucha suerte, nos vemos en el Cosquín Rock.</p>
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpZWZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4eGZqZnd4JnB0PW0mY3Q9Zw/3o7TKDkDbIDJieKbVm/giphy.gif" width="100%">
+            <img src="https://lh3.googleusercontent.com/d/12chhvtpxGrY2P_N6CxDJfsbAKsiyDZbV" alt="Oso bailando" width="100%" style="border-radius: 10px; margin-top: 15px;">
         </div>
     </div>
     <script src="script.js"></script>

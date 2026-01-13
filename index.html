@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteo Cosquín Rock - Oso a la Piedra & Dilema</title>
-    <link rel="stylesheet" href="style.css?v=1.2">
+    <link rel="stylesheet" href="style.css?v=1.6">
 </head>
 <body>
     <div class="container">
@@ -16,19 +16,39 @@
 
         <div class="card">
             <h1>¡Sorteamos 2 entradas para el Cosquín Rock 2026! 🎸</h1>
-            <p>Participá con tu código de compra del local.</p>
+            <p>Participá con el código de tu ticket de compra.</p>
             
             <div style="margin: 20px 0;">
-                <p class="fecha-fin" style="font-weight: bold; color: #EE5E4D;">Tenés tiempo hasta el 31 de Enero.</p>
+                <div class="input-group">
+                    <label>Ingresá tu código manual:</label>
+                    <input type="text" id="manual-code" placeholder="Ej: OSO-XXX-1234" style="text-transform: uppercase;">
+                </div>
+                <button onclick="irAValidar()" class="btn-principal">CARGAR MI CÓDIGO</button>
             </div>
 
-            <a href="validar.html" class="btn-principal">CARGAR MI CÓDIGO</a>
-            
             <p style="font-size: 13px; color: #666; margin-top: 25px; line-height: 1.4;">
-                Escaneá el código único de tu ticket <br> para registrarte y participar.
+                Si tenés el QR, escanealo directamente <br> para cargar el código automático.
             </p>
         </div>
+    </div>
 
-        </div>
+    <script>
+        function irAValidar() {
+    const input = document.getElementById('manual-code');
+    const btn = document.querySelector('.btn-principal');
+    const codigo = input.value.trim();
+    
+    if (codigo) {
+        window.location.href = "validar.html?codigo=" + encodeURIComponent(codigo);
+    } else {
+        // Agregamos la clase de sacudida
+        btn.classList.add('shake');
+        // La quitamos después de que termine la animación (500ms) para poder repetirla
+        setTimeout(() => {
+            btn.classList.remove('shake');
+        }, 500);
+    }
+}
+    </script>
 </body>
 </html>

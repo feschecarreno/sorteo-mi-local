@@ -1,3 +1,4 @@
+/* --- CONFIGURACIÓN BASE --- */
 body {
     background-color: #FFE7D8; /* Color crema del manual */
     font-family: 'Arial', sans-serif;
@@ -13,53 +14,48 @@ body {
     text-align: center; 
 }
 
-/* --- NUEVO SISTEMA DE LOGOS --- */
+/* --- NUEVO SISTEMA DE LOGOS (Cabecera) --- */
 .header-logos {
     display: flex;
-    align-items: center; /* Centrado vertical entre ambos */
+    align-items: center;
     justify-content: center;
-    gap: 25px; /* Espacio entre logos */
+    gap: 25px;
     margin-bottom: 5px;
     padding-top: 10px;
 }
 
 .logo-oso { 
-    height: 95px; /* Aumentado para mayor jerarquía sobre Dilema */
+    height: 95px; 
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
 }
 
 .logo-dilema { 
-    height: 48px; /* Reducido ligeramente para marcar la diferencia */
+    height: 48px; 
     width: auto;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
 }
 
-/* Ajuste específico para el GIF de éxito */
-#success-container img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-/* --- FIN LOGOS --- */
-
+/* --- TARJETA PRINCIPAL --- */
 .card {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 35px 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     margin-top: 10px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .hidden { display: none; }
 
-h1 { color: #1A1A1A; font-size: 22px; margin-bottom: 15px; }
-h2 { color: #008459; margin-top: 0; }
+h1 { color: #1A1A1A; font-size: 22px; margin-bottom: 15px; line-height: 1.2; }
+h2 { color: #008459; margin-top: 0; font-size: 24px; }
 
-/* Estilos para etiquetas de campos */
+/* --- FORMULARIOS E INPUTS --- */
 .input-group {
     text-align: left;
     margin-bottom: 12px;
@@ -71,22 +67,23 @@ h2 { color: #008459; margin-top: 0; }
     font-size: 14px;
     color: #444;
     margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 input {
     width: 100%;
     padding: 15px;
-    margin: 5px 0 10px 0;
     border: 2px solid #eee;
-    border-radius: 10px;
+    border-radius: 12px;
     box-sizing: border-box;
     font-size: 16px;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 input:focus {
     border-color: #EE5E4D;
     outline: none;
+    background-color: #fff9f8;
 }
 
 .checkbox-group {
@@ -95,6 +92,7 @@ input:focus {
     text-align: left;
     margin: 15px 0;
     font-size: 14px;
+    line-height: 1.2;
 }
 
 .checkbox-group input {
@@ -102,6 +100,7 @@ input:focus {
     margin: 0 10px 0 0;
 }
 
+/* --- BOTONES Y ANIMACIONES --- */
 button, .btn-principal {
     background-color: #EE5E4D;
     color: white;
@@ -109,41 +108,68 @@ button, .btn-principal {
     padding: 18px 20px;
     border-radius: 50px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 17px;
     cursor: pointer;
     width: 100%;
     display: block;
     text-decoration: none;
     margin-top: 10px;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(238, 94, 77, 0.3);
 }
 
 button:active {
     transform: scale(0.96);
 }
 
+/* Animación de Sacudida para el botón */
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
 .btn-secundario { 
-    color: #1A1A1A; 
+    color: #666; 
     text-decoration: underline; 
     display: block; 
-    margin-top: 15px; 
+    margin-top: 20px;
+    font-size: 14px;
 }
 
+/* --- OPTIMIZACIÓN DE GIFS (Carga y Éxito) --- */
 .loading-gif {
-    max-width: 100px; /* Ajusta el tamaño según prefieras */
+    width: 85%; /* Grande para ocupar la pantalla */
+    max-width: 250px;
     height: auto;
     display: block;
-    margin: 15px auto; /* Centrar y dar espacio */
+    margin: 0 auto 20px auto;
+    border-radius: 20px;
 }
 
+#loader p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #EE5E4D;
+    margin-top: 10px;
+}
+
+#success-container img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Spinner residual (por si el GIF falla) */
 .spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #EE5E4D;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    animation: spin 1s linear infinite;
-    margin: 15px auto;
+    display: none; /* Oculto porque ahora usamos el GIF */
 }
-
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
